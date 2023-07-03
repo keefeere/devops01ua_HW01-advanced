@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 ##Linux strong password generator by KeeFeeRe(c)2023
 
 # Import the random and string modules
