@@ -14,6 +14,10 @@ special_characters = string.punctuation
 # Define the minimum and maximum password length
 min_length = 6
 max_length = 255
+def_length = 8
+min_count = 1
+max_count = 1000
+
 
 # Define the ANSI escape sequences for colors
 # https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal
@@ -70,13 +74,15 @@ print("Welcome to the Linux User Password Generator by KeeFeeRe!")
 valid = False
 while not valid:
     try:
-        length = int(input(f"Please enter the desired password length (between {min_length} and {max_length}): "))
+        length = int(input(f"Please enter the desired password length (between {min_length} and {max_length}, default is {def_length}): "))
         if min_length <= length <= max_length:
             valid = True
         else:
             print(f"Error: Please enter a number between {min_length} and {max_length}")
     except ValueError:
-        print("Error: Please enter a valid number")
+        print("Ok, password length is" ,def_length)
+        length = def_length
+        valid = True
     except KeyboardInterrupt:
         print("\nExiting the program...")
         break
@@ -99,13 +105,20 @@ if valid:
     valid = False 
     while not valid: 
         try: 
-            choice = input("Do you want to see the colored output? (Y/N): ").upper()
+            choice = input("Do you want to see the colored output? (Y/N(default)): ").upper()
             if choice in ["Y", "N"]:
                 valid = True 
             else: 
-                print("Error: Please enter Y or N")
+                if choice == '':
+                    choice = "N"
+                    valid = True 
+                    break
+                else:
+                    print("Error: Please enter Y or N")
         except ValueError: 
-            print("Error: Please enter Y or N")
+            choice = "N"
+            valid = True 
+            break
         except KeyboardInterrupt: 
             print("\nExiting the program...")
             break 
