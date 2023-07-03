@@ -67,6 +67,21 @@ def color_password(password):
     # Return the colored password
     return colored_password
 
+def pass_gen(length):
+    # Initialize an empty password
+    password = ""
+
+    # Loop until the password is valid
+    while not is_valid(password):
+        # Reset the password to empty string
+        password = ""
+        # Generate a random password of the desired length using the string module's join method 
+        # https://www.w3schools.com/python/ref_random_choices.asp
+        password = "".join(random.choices(uppercase_letters + lowercase_letters + numbers + special_characters, k=length))
+    return password
+
+    
+
 # Welcome message
 print("Welcome to the Linux User Password Generator by KeeFeeRe!")
 
@@ -87,50 +102,72 @@ while not valid:
         print("\nExiting the program...")
         break
 
-# Generate a random password if the length is valid
-if valid:
-    # Initialize an empty password
-    password = ""
 
-    # Loop until the password is valid
-    while not is_valid(password):
-        # Reset the password to empty string
-        password = ""
-        # Generate a random password of the desired length using the string module's join method 
-        # https://www.w3schools.com/python/ref_random_choices.asp
-        password = "".join(random.choices(uppercase_letters + lowercase_letters + numbers + special_characters, k=length))
-
-    
-    # Prompt the user to choose whether they want to see the colored output or not and validate their choice 
-    valid = False 
-    while not valid: 
-        try: 
-            choice = input("Do you want to see the colored output? (Y/N(default)): ").upper()
-            if choice in ["Y", "N"]:
+ # Prompt the user to choose whether they want to see the colored output or not and validate their choice 
+valid = False 
+while not valid:
+    try: 
+        choice = input("Do you want to see the colored output? (Y/N(default)): ").upper()
+        if choice in ["Y", "N"]:
+            valid = True 
+        else: 
+            if choice == '':
+                choice = "N"
                 valid = True 
-            else: 
-                if choice == '':
-                    choice = "N"
-                    valid = True 
-                    break
-                else:
+                break
+            else:
                     print("Error: Please enter Y or N")
-        except ValueError: 
+    except ValueError: 
             choice = "N"
             valid = True 
             break
-        except KeyboardInterrupt: 
+    except KeyboardInterrupt: 
             print("\nExiting the program...")
             break 
 
-    # If the user chooses Y, color the password according to the character type and display it to the user with colors and explanations 
+
+# Asking for the password count and validate it
+count = input("How many passwords do you want to get?  (default is 1):")
+
+# Checking the password count input and the range
+valid = False
+while not valid:
+    try:
+        # Converting the input to an integer or assigning a default value of 1
+        count = int(count) or 1
+        # Checking the range
+        if count < min_count or count > max_count:
+            # Printing an error message
+            print(f"The password count must be in the range from {min_count} to {max_count}.")
+        else:
+            # Continuing the password generation, exit loop
+            break
+    except ValueError:
+        count = 1
+        break
+
+if choice == "Y":
+        print(f"Generating {count} coloured password(s):\n")
+    # If the user chooses N, display the generated password to the user without colors 
+elif choice == "N":
+        print(f"Generating {count} password(s):\n")
+
+
+
+for i in range(0, count):
+    password = pass_gen(length)
+    # If the user chooses Y, color the password according to the character type and 
     if choice == "Y":
         colored_password = color_password(password)
-        print("\nGenerated and colored password:", colored_password)
-        print("Explanation:")
-        print(blue + "Blue" + reset + " means number")
-        print(green + "Green" + reset + " means letter")
-        print(pink + "Pink" + reset + " means special character")
+        print( colored_password)
     # If the user chooses N, display the generated password to the user without colors 
     elif choice == "N":
-        print("\nGenerated password:", password)
+        print(password)
+
+
+#Display password colors explanation
+if choice == "Y":
+    print("\nExplanation:")
+    print(blue + "Blue" + reset + " means number")
+    print(green + "Green" + reset + " means letter")
+    print(pink + "Pink" + reset + " means special character")
