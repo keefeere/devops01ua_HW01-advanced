@@ -1,17 +1,21 @@
-# Import the random module
-import random
+##Linux strong password generator by KeeFeeRe(c)2023
 
-# Define the possible characters for the password
-uppercase_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-lowercase_letters = "abcdefghijklmnopqrstuvwxyz"
-numbers = "0123456789"
-special_characters = "!@#$%^&*()_+-=[]{}|;:,./<>?"
+# Import the random and string modules
+import random
+import string
+
+# Define the possible characters for the password using the string module
+uppercase_letters = string.ascii_uppercase
+lowercase_letters = string.ascii_lowercase
+numbers = string.digits
+special_characters = string.punctuation
 
 # Define the minimum and maximum password length
 min_length = 6
 max_length = 255
 
 # Define the ANSI escape sequences for colors
+# https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal
 blue = "\033[34m"
 green = "\033[32m"
 pink = "\033[35m"
@@ -58,7 +62,7 @@ def color_password(password):
     return colored_password
 
 # Welcome message
-print("Welcome to the Linux User Password Generator!")
+print("Welcome to the Linux User Password Generator by KeeFeeRe!")
 
 # Prompt the user to enter the desired password length and validate it
 valid = False
@@ -84,12 +88,11 @@ if valid:
     while not is_valid(password):
         # Reset the password to empty string
         password = ""
-        # Generate a random password of the desired length
-        for i in range(length):
-            # Choose a random character from all possible characters
-            password += random.choice(uppercase_letters + lowercase_letters + numbers + special_characters)
+        # Generate a random password of the desired length using the string module's join method 
+        # https://www.w3schools.com/python/ref_random_choices.asp
+        password = "".join(random.choices(uppercase_letters + lowercase_letters + numbers + special_characters, k=length))
 
-    # Display the generated password to the user without colors
+    # Display the generated password to the user without colors 
     print("\nGenerated password:", password)
 
     # Color the password according to the character type and display it to the user with colors 
