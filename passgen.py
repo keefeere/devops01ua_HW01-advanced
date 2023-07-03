@@ -5,6 +5,7 @@ import random
 import string
 
 # Define the possible characters for the password using the string module
+# https://docs.python.org/3/library/string.html
 uppercase_letters = string.ascii_uppercase
 lowercase_letters = string.ascii_lowercase
 numbers = string.digits
@@ -23,6 +24,7 @@ reset = "\033[0m"
 
 # Define a function to check if a password is valid
 def is_valid(password):
+    # https://stackoverflow.com/questions/39356688/python-2-7-if-not-any-syntax
     # Check if the password contains at least one uppercase letter
     if not any(char in uppercase_letters for char in password):
         return False
