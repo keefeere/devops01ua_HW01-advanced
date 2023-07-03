@@ -92,9 +92,30 @@ if valid:
         # https://www.w3schools.com/python/ref_random_choices.asp
         password = "".join(random.choices(uppercase_letters + lowercase_letters + numbers + special_characters, k=length))
 
-    # Display the generated password to the user without colors 
-    print("\nGenerated password:", password)
+    
+    # Prompt the user to choose whether they want to see the colored output or not and validate their choice 
+    valid = False 
+    while not valid: 
+        try: 
+            choice = input("Do you want to see the colored output? (Y/N): ").upper()
+            if choice in ["Y", "N"]:
+                valid = True 
+            else: 
+                print("Error: Please enter Y or N")
+        except ValueError: 
+            print("Error: Please enter Y or N")
+        except KeyboardInterrupt: 
+            print("\nExiting the program...")
+            break 
 
-    # Color the password according to the character type and display it to the user with colors 
-    colored_password = color_password(password)
-    print("Colored password:", colored_password)
+    # If the user chooses Y, color the password according to the character type and display it to the user with colors and explanations 
+    if choice == "Y":
+        colored_password = color_password(password)
+        print("\nGenerated and colored password:", colored_password)
+        print("Explanation:")
+        print(blue + "Blue" + reset + " means number")
+        print(green + "Green" + reset + " means letter")
+        print(pink + "Pink" + reset + " means special character")
+    # If the user chooses N, display the generated password to the user without colors 
+    elif choice == "N":
+        print("\nGenerated password:", password)
