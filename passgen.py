@@ -137,7 +137,7 @@ valid = False
 while not valid:
     try:
         # Converting the input to an integer or assigning a default value of 1
-        count = int(float(input(f"How many passwords do you want to get?  (default is 1):").replace(',', '.')))
+        count = int(float(input(f"How many passwords do you want to get?  (default is 1 if no value or errorneus value specifed):").replace(',', '.')))
         # Checking the range
         if count < min_count or count > max_count:
             # Printing an error message
