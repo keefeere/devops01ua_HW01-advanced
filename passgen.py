@@ -121,9 +121,7 @@ while not valid:
             else:
                     print("Error: Please enter Y or N")
     except ValueError: 
-            choice = "N"
-            valid = True 
-            break
+            print("Error: Please enter Y or N")
     except KeyboardInterrupt: 
             print("\nExiting the program...")
             exit()
