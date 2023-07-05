@@ -91,13 +91,13 @@ print("Welcome to the Linux User Password Generator by KeeFeeRe!")
 valid = False
 while not valid:
     try:
-        length = int(input(f"Please enter the desired password length (between {min_length} and {max_length}, default is {def_length}): "))
+        length = int(float(input(f"Please enter the desired password length (between {min_length} and {max_length}, default is {def_length}): ").replace(',', '.')))
         if min_length <= length <= max_length:
             valid = True
         else:
             print(f"Error: Please enter a number between {min_length} and {max_length}")
     except ValueError:
-        print("Ok, password length is" ,def_length)
+        print("Ok, selecting defaul password length (",def_length,")")
         length = def_length
         valid = True
     except KeyboardInterrupt:
