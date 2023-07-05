@@ -102,6 +102,7 @@ while not valid:
         valid = True
     except KeyboardInterrupt:
         print("\nExiting the program...")
+        exit()
         break
 
 
@@ -125,18 +126,18 @@ while not valid:
             break
     except KeyboardInterrupt: 
             print("\nExiting the program...")
+            exit()
             break 
 
 
 # Asking for the password count and validate it
-count = input("How many passwords do you want to get?  (default is 1):")
-
+count = 1
 # Checking the password count input and the range
 valid = False
 while not valid:
     try:
         # Converting the input to an integer or assigning a default value of 1
-        count = int(count) or 1
+        count = int(float(input(f"How many passwords do you want to get?  (default is 1):").replace(',', '.')))
         # Checking the range
         if count < min_count or count > max_count:
             # Printing an error message
@@ -146,6 +147,10 @@ while not valid:
             break
     except ValueError:
         count = 1
+        break
+    except KeyboardInterrupt:
+        print("\nExiting the program...")
+        exit()
         break
 
 if choice == "Y":
